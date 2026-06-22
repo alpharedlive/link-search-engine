@@ -387,12 +387,15 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       // Intercept and launch modal
-      const launchBtn = card.querySelector('.btn-launch-secure');
-      launchBtn.addEventListener('click', () => {
+      const triggerModal = () => {
         activeRedirectUrl = link.url;
         activeRedirectId = link.id;
         followModal.classList.add('active');
-      });
+      };
+      
+      card.querySelector('.btn-launch-secure').addEventListener('click', triggerModal);
+      card.querySelector('.result-title').addEventListener('click', triggerModal);
+      card.querySelector('.result-url').addEventListener('click', triggerModal);
 
       // Admin quick delete option directly from card
       const deleteBtn = card.querySelector('.btn-delete-db');
