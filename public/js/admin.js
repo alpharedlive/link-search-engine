@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const linksTableBody = document.getElementById('linksTableBody');
   const toastContainer = document.getElementById('toastContainer');
 
-  const API_BASE = ''; 
+  const API_BASE = window.location.hostname.endsWith('github.io') ? 'http://localhost:8000' : ''; 
   let localLinksCache = [];
 
   // --- Theme Controller ---
@@ -186,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
     linkTitleInput.focus();
   }
 
+  // Form Reset
   function resetForm() {
     linkIdInput.value = '';
     linkForm.reset();

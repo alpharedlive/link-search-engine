@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let activeRedirectId = '';
 
   // API base URL configuration (supports running on different host/port if needed)
-  const API_BASE = ''; 
+  const API_BASE = window.location.hostname.endsWith('github.io') ? 'http://localhost:8000' : ''; 
 
   // List of all keywords/titles compiled for live autocomplete suggestions
   let allLinksCache = [];
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
       deleteBtn.addEventListener('click', async () => {
         if (confirm(`ADMIN CONFIGURATION ACCESS:\nAre you sure you want to permanently delete "${link.title}" from the registry database?`)) {
           try {
-            const response = await fetch(`/api/links?id=${link.id}`, { method: 'DELETE' });
+            const response = await fetch(`${API_BASE}/api/links?id=${link.id}`, { method: 'DELETE' });
             if (response.ok) {
               showToast(`"${link.title}" has been deleted from search index.`, 'success');
               triggerSearch(); // Refresh results list
