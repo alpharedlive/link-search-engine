@@ -1,0 +1,166 @@
+[
+  {
+    "id": "1",
+    "url": "https://www.google.com",
+    "title": "Google Search",
+    "description": "The world's most popular search engine to find information, images, videos, and more.",
+    "keywords": [
+      "search",
+      "google",
+      "web",
+      "find",
+      "engine"
+    ],
+    "clickCount": 12
+  },
+  {
+    "id": "2",
+    "url": "https://github.com",
+    "title": "GitHub",
+    "description": "A developer platform for hosting, version control, and collaboration on software projects.",
+    "keywords": [
+      "code",
+      "github",
+      "git",
+      "repository",
+      "programming",
+      "developer",
+      "open source"
+    ],
+    "clickCount": 8
+  },
+  {
+    "id": "3",
+    "url": "https://news.ycombinator.com",
+    "title": "Hacker News",
+    "description": "A social news website focusing on computer science, entrepreneurship, and technical curiosity.",
+    "keywords": [
+      "news",
+      "tech",
+      "hacker news",
+      "ycombinator",
+      "yc",
+      "startup",
+      "articles"
+    ],
+    "clickCount": 6
+  },
+  {
+    "id": "4",
+    "url": "https://stackoverflow.com",
+    "title": "Stack Overflow",
+    "description": "The largest online community for programmers to learn, share their knowledge, and build their careers.",
+    "keywords": [
+      "help",
+      "programming",
+      "code",
+      "bugs",
+      "errors",
+      "questions",
+      "answers"
+    ],
+    "clickCount": 7
+  },
+  {
+    "id": "5",
+    "url": "https://wikipedia.org",
+    "title": "Wikipedia",
+    "description": "A free multilingual online encyclopedia written and maintained by a community of volunteers.",
+    "keywords": [
+      "info",
+      "knowledge",
+      "encyclopedia",
+      "learn",
+      "facts",
+      "history",
+      "wiki"
+    ],
+    "clickCount": 12
+  },
+  {
+    "id": "abd0ca3b-5869-4b8a-98d5-bc8197683e1d",
+    "title": "Antigravity Workspace",
+    "url": "https://antigravity.ide",
+    "description": "A custom coding IDE platform developed by DeepMind.",
+    "keywords": [
+      "ide",
+      "antigravity",
+      "code",
+      "deepmind"
+    ],
+    "clickCount": 1
+  },
+  {
+    "id": "0ab854f7-7f0e-4ea3-86f5-336d13f0f269",
+    "title": "Airdroid Parental Control App",
+    "url": "https://bit.ly/4wL5Rgm",
+    "description": "",
+    "keywords": [
+      "air",
+      "spy",
+      "parent",
+      "airdroid",
+      "controlphone"
+    ],
+    "clickCount": 3
+  },
+  {
+    "id": "insta-alpha-red",
+    "title": "Alpha Red Instagram Profile",
+    "url": "https://www.instagram.com/alphaa__red?igsh=ZWY4b3dxaDM3MDgw&utm_source=qr",
+    "description": "Follow Alpha Red on Instagram for the latest updates, screenshots, and visual posts.",
+    "keywords": [
+      "insta",
+      "instagram",
+      "alpha red",
+      "social",
+      "profile",
+      "alphaa__red"
+    ],
+    "clickCount": 0
+  },
+  {
+    "id": "youtube-alpha-red",
+    "title": "Alpha Red YouTube Channel",
+    "url": "https://youtube.com/@alpharedyt?si=D-j363_BStnFd07k",
+    "description": "Subscribe to the Alpha Red YouTube channel for gaming, dev streams, and tutorials.",
+    "keywords": [
+      "youtube",
+      "yt",
+      "video",
+      "stream",
+      "gaming",
+      "alpha red",
+      "alpharedyt"
+    ],
+    "clickCount": 0
+  },
+  {
+    "id": "facebook-alpha-red",
+    "title": "Alpha Red Facebook Profile",
+    "url": "https://www.facebook.com/share/1Cw89Mcmqh/?mibextid=wwXIfr",
+    "description": "Connect with Alpha Red on Facebook to share updates and network.",
+    "keywords": [
+      "facebook",
+      "fb",
+      "social",
+      "alpha red"
+    ],
+    "clickCount": 0
+  },
+  {
+    "id": "linkedin-bibin",
+    "title": "Bibin B S LinkedIn Profile",
+    "url": "https://www.linkedin.com/in/bibin-b-s?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+    "description": "Connect with Bibin B S on LinkedIn to view experience, professional background, and developer networks.",
+    "keywords": [
+      "linkedin",
+      "professional",
+      "bibin b s",
+      "profile",
+      "cv",
+      "resume"
+    ],
+    "clickCount": 0
+  }
+]

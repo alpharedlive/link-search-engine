@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaSearch - Custom Link Search Engine</title>
+  <meta name="description" content="A powerful personal directory and search engine for curated, high-quality links and resources.">
+  <link rel="stylesheet" href="css/style.css?v=1.1.0">
+  <!-- FontAwesome Icons for premium visual feel -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- App Header / Navigation -->
+  <header>
+    <a href="index.html" class="logo-container" id="navLogo">
+      <div class="logo-icon"><i class="fa-solid fa-atom"></i></div>
+      <div class="logo-text">AlphaSearch</div>
+    </a>
+    <div class="nav-actions">
+      <!-- Dark/Light Theme Toggle -->
+      <button class="btn-icon" id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <!-- Admin Dashboard Link -->
+      <a href="admin.html" class="btn-secondary" id="adminLink" title="Go to Admin Panel">
+        <i class="fa-solid fa-sliders"></i> Admin Dashboard
+      </a>
+    </div>
+  </header>
+
+  <!-- Floating Left Diagnostics HUD panel -->
+  <aside class="hud-panel left-hud" id="leftHud">
+    <div class="hud-panel-header"><i class="fa-solid fa-gauge-high"></i> SYSTEM_DIAGNOSTICS</div>
+    <div class="hud-panel-content">
+      <p>STATUS: <span class="text-success pulse-text">ONLINE</span></p>
+      <p>REACTOR: <span class="text-cyan pulse-text">ACTIVE</span></p>
+      <p>SECURE_PORT: <span class="text-gold">8000</span></p>
+      <p>INDEX_SIZE: <span class="text-cyan" id="hudDbCount">0 SECURE HITS</span></p>
+    </div>
+  </aside>
+
+  <!-- Floating Right Quick Links HUD panel -->
+  <aside class="hud-panel right-hud" id="rightHud">
+    <div class="hud-panel-header"><i class="fa-solid fa-terminal"></i> SECURE_LINKS</div>
+    <div class="hud-panel-content">
+      <a href="https://www.instagram.com/alphaa__red?igsh=ZWY4b3dxaDM3MDgw&utm_source=qr" target="_blank" class="hud-link"><i class="fa-brands fa-instagram text-gold"></i> INSTAGRAM</a>
+      <a href="https://youtube.com/@alpharedyt?si=D-j363_BStnFd07k" target="_blank" class="hud-link"><i class="fa-brands fa-youtube text-cyan"></i> YOUTUBE</a>
+      <a href="https://www.facebook.com/share/1Cw89Mcmqh/?mibextid=wwXIfr" target="_blank" class="hud-link"><i class="fa-brands fa-facebook text-gold"></i> FACEBOOK</a>
+      <a href="https://www.linkedin.com/in/bibin-b-s?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="hud-link"><i class="fa-brands fa-linkedin text-cyan"></i> LINKEDIN</a>
+      <a href="admin.html" class="hud-link" style="margin-top: 0.5rem; border-top: 1px dashed var(--border-color); padding-top: 0.5rem;"><i class="fa-solid fa-key text-gold"></i> STARK CONSOLE</a>
+    </div>
+  </aside>
+
+  <!-- Main Search Container -->
+  <main class="main-container" id="mainContainer">
+    
+    <!-- Search wrapper including title, description, and search bar -->
+    <div class="search-wrapper" id="searchWrapper">
+      <h1 class="hero-title">AlphaSearch</h1>
+      <p class="hero-subtitle">Enter secure access tag or keyword</p>
+      
+      <!-- Search Input Container -->
+      <div class="search-box-container">
+        <div class="search-bar-outer">
+          <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput" 
+            placeholder="ENTER SEARCH QUERY..." 
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search inputs"
+          >
+          <button class="clear-btn" id="clearBtn" title="Clear search" aria-label="Clear Search Input">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button class="search-btn" id="searchBtn" title="Search" aria-label="Submit Search Query" style="display: none;">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        
+        <!-- Dual action buttons -->
+        <div class="search-actions-row">
+          <button class="btn-primary btn-yellow" id="alphaSearchBtn"><i class="fa-solid fa-bolt"></i> Alpha Search</button>
+          <button class="btn-secondary btn-cyan" id="luckyBtn"><i class="fa-solid fa-dice"></i> I'm Feeling Lucky</button>
+        </div>
+        
+        <!-- Suggestions box floating below -->
+        <div class="suggestions-box" id="suggestionsBox">
+          <!-- Suggestion items will be inserted dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Results Content Area -->
+    <section class="results-container" id="resultsContainer">
+      <div class="results-stats">
+        <span id="resultsCount">Found 0 results</span>
+        <span id="searchSpeed">in 0ms</span>
+      </div>
+      
+      <div id="resultsList">
+        <!-- Result cards will be loaded here dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Instagram Follow Modal Gate -->
+  <div class="modal-overlay" id="followModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <i class="fa-solid fa-triangle-exclamation text-gold pulse-text"></i>
+        <span>SECURITY GATEWAY CHECK</span>
+      </div>
+      <div class="modal-body">
+        <h3 class="modal-title">ACCESS SECURE DATA RESOURSE</h3>
+        <p class="modal-desc">
+          To access the requested asset link, you must follow the system administrator <strong>@alphaa__red</strong> on Instagram.
+        </p>
+        <p class="modal-sub">
+          Clicking the follow button will open Instagram in a new tab, and automatically redirect this screen to the target secure link destination.
+        </p>
+      </div>
+      <div class="modal-actions">
+        <a href="https://www.instagram.com/alphaa__red?igsh=ZWY4b3dxaDM3MDgw&utm_source=qr" target="_blank" class="btn-primary btn-yellow" id="modalFollowBtn">
+          <i class="fa-brands fa-instagram"></i> FOLLOW @ALPHAA__RED
+        </a>
+        <button class="btn-secondary" id="modalCancelBtn">CANCEL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 AlphaSearch. Curate your links with ease. | <a href="admin.html">Manage Links</a></p>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="js/app.js?v=1.1.0"></script>
+</body>
+</html>
