@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activeRedirectId = '';
         // Wait briefly for target tab to open, redirect page in 100ms
         setTimeout(() => {
-          window.open(dest, '_blank');
+          window.location.href = dest;
         }, 100);
       }
     });
