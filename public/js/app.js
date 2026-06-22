@@ -68,9 +68,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hudDbCount) {
           hudDbCount.textContent = `${allLinksCache.length} SECURE RECORDS`;
         }
+      } else {
+        throw new Error('Server returned non-ok status');
       }
     } catch (e) {
-      console.warn('Failed to load suggestions database', e);
+      console.warn('Failed to load suggestions database, trying static fallback', e);
+      try {
+        const staticResponse = await fetch('../links.json');
+        if (staticResponse.ok) {
+          allLinksCache = await staticResponse.json();
+          if (hudDbCount) {
+            hudDbCount.textContent = `${allLinksCache.length} LOCAL RECORDS`;
+          }
+          // Update HUD Reactor status to show STANDBY / LOCAL MODE
+          const leftHud = document.getElementById('leftHud');
+          if (leftHud) {
+            const statusSpan = leftHud.querySelector('.text-success');
+            if (statusSpan) {
+              statusSpan.textContent = 'LOCAL MODE';
+              statusSpan.className = 'text-cyan pulse-text';
+            }
+            const reactorSpan = leftHud.querySelector('.text-cyan');
+            if (reactorSpan) {
+              reactorSpan.textContent = 'STANDBY';
+              reactorSpan.className = 'text-gold';
+            }
+          }
+        }
+      } catch (staticErr) {
+        console.error('Static fallback failed', staticErr);
+      }
     }
   };
   
@@ -206,6 +233,60 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
 
+  function clientSideSearch(query) {
+    const queryLower = query.toLowerCase().trim();
+    if (!queryLower) {
+      return allLinksCache.slice().sort((a, b) => (b.clickCount || 0) - (a.clickCount || 0)).slice(0, 5);
+    }
+    const queryWords = queryLower.split(/\s+/);
+    const scoredResults = [];
+
+    allLinksCache.forEach(link => {
+      let score = 0;
+      const title = (link.title || '').toLowerCase();
+      const desc = (link.description || '').toLowerCase();
+      const url = (link.url || '').toLowerCase();
+      const keywords = (link.keywords || []).map(k => k.toLowerCase());
+
+      if (queryLower === title) {
+        score += 150;
+      }
+
+      queryWords.forEach(word => {
+        if (title.includes(word)) {
+          score += 30;
+        }
+        if (keywords.includes(word)) {
+          score += 40;
+        }
+        keywords.forEach(kw => {
+          if (kw.includes(word)) {
+            score += 10;
+          }
+        });
+        if (desc.includes(word)) {
+          score += 15;
+        }
+        if (url.includes(word)) {
+          score += 20;
+        }
+      });
+
+      if (score > 0) {
+        scoredResults.push({ score, link });
+      }
+    });
+
+    scoredResults.sort((a, b) => {
+      if (b.score !== a.score) {
+        return b.score - a.score;
+      }
+      return (b.link.clickCount || 0) - (a.link.clickCount || 0);
+    });
+
+    return scoredResults.map(item => item.link);
+  }
+
   async function triggerSearch() {
     const query = searchInput.value.trim();
     suggestionsBox.classList.remove('active');
@@ -237,15 +318,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const results = await response.json();
       renderResults(results, elapsedMs, query);
     } catch (e) {
-      showToast(`SYSTEM GLITCH: ${e.message}`, 'danger');
-      resultsList.innerHTML = `<div class="no-results-state" style="border-color: var(--danger-color);">
-        <div class="no-results-icon" style="color: var(--danger-color)"><i class="fa-solid fa-circle-exclamation"></i></div>
-        <div class="no-results-text" style="color: var(--danger-color);">
-          <h3 style="font-family: var(--font-title); font-size: 1.1rem;">[!] CONNECTION TERMINATED</h3>
-          <p style="font-family: var(--font-hud); font-size: 1.4rem; margin-top: 1rem; color: var(--text-muted);">CRITICAL: THE SEARCH ENGINE DATABASE API IS NOT INITIATING RESPONSE HANDLES.</p>
-          <p style="font-family: var(--font-body); font-size: 1rem; margin-top: 0.5rem; opacity: 0.8;">ADVICE: ENSURE RECTOR PYTHON SERVER IS EXECUTED LOCALLY ON PORT 8000.</p>
-        </div>
-      </div>`;
+      console.warn('Backend search failed, using client-side fallback', e);
+      const elapsedMs = Math.round(performance.now() - startTime);
+      const results = clientSideSearch(query);
+      renderResults(results, elapsedMs, query);
+      showToast('DATABANK OFFLINE: LOCAL SEARCH', 'warning');
     }
   }
 
